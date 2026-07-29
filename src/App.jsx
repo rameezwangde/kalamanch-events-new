@@ -177,14 +177,14 @@ function Hero() {
         <h1 style={{ textAlign: 'center' }}>Every School Event Deserves a Standing Ovation</h1>
       </div>
 
-      <div className="hero-video-wrap" style={{ position: 'relative', left: 'auto', bottom: 'auto', transform: 'none', margin: '60px auto', width: '80%', maxWidth: '1000px' }}>
+      <div className="hero-video-wrap" style={{ position: 'relative', left: 'auto', bottom: 'auto', transform: 'none', margin: '40px 0 0 0', width: '100%', maxWidth: 'none' }}>
         <video
           autoPlay
           loop
           muted
           playsInline
           className="hero-video"
-          src="/hero video.mp4"
+          src="/new video.mp4"
           style={{ width: '100%', height: 'auto', display: 'block', objectFit: 'cover' }}
         />
       </div>
