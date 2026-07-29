@@ -1,0 +1,14 @@
+node_modules/
+dist/
+
+# Local reference and QA files
+/ChatGPT Image*.png
+/hero new.png
+/hero-desktop-qa.*
+/image.png
+/kalamanch logo.jpeg
+
+# Local environment files
+.env
+.env.*
+!.env.example
