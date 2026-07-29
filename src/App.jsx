@@ -170,30 +170,24 @@ function Doodles() {
 
 function Hero() {
   return (
-    <main className="hero" id="home">
+    <main className="hero" id="home" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
       <Header />
 
-      <div className="hero-copy">
-        <h1>Every School Event Deserves a Standing Ovation</h1>
-        <div className="supporting-line">
-          <p>
-            Crafting school events that <strong>inspire.</strong> Moments that <strong>last.</strong>
-          </p>
-          <svg viewBox="0 0 240 17" aria-hidden="true">
-            <path d="M4 10c63-7 145-8 231-2M44 14c57-5 112-4 157-1" />
-          </svg>
-        </div>
+      <div className="hero-copy" style={{ marginTop: '12vh' }}>
+        <h1 style={{ textAlign: 'center' }}>Every School Event Deserves a Standing Ovation</h1>
       </div>
 
-      <div className="stage-wrap">
-        {/* Replace this file with your final stage artwork if needed. */}
-        <img
-          src="/images/school-event-stage.png"
-          alt="Students performing under blue spotlights on a dramatic school-event stage"
+      <div className="hero-video-wrap" style={{ position: 'relative', left: 'auto', bottom: 'auto', transform: 'none', margin: '60px auto', width: '80%', maxWidth: '1000px' }}>
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          className="hero-video"
+          src="/hero video.mp4"
+          style={{ width: '100%', height: 'auto', display: 'block', objectFit: 'cover' }}
         />
       </div>
-
-      <Doodles />
     </main>
   );
 }
@@ -219,8 +213,37 @@ function WhoWeAre() {
     return () => observer.disconnect();
   }, []);
 
+  useEffect(() => {
+    const section = sectionRef.current;
+    if (!section) return undefined;
+
+    const updatePointer = (event) => {
+      const bounds = section.getBoundingClientRect();
+      const pointerX = (event.clientX - bounds.left) / bounds.width - 0.5;
+      const pointerY = (event.clientY - bounds.top) / bounds.height - 0.5;
+
+      section.style.setProperty("--pointer-x", pointerX.toFixed(3));
+      section.style.setProperty("--pointer-y", pointerY.toFixed(3));
+    };
+
+    const resetPointer = () => {
+      section.style.setProperty("--pointer-x", "0");
+      section.style.setProperty("--pointer-y", "0");
+    };
+
+    section.addEventListener("pointermove", updatePointer);
+    section.addEventListener("pointerleave", resetPointer);
+
+    return () => {
+      section.removeEventListener("pointermove", updatePointer);
+      section.removeEventListener("pointerleave", resetPointer);
+    };
+  }, []);
+
   return (
     <section className="who-we-are" id="about-us" ref={sectionRef}>
+      {/* Removed about-photo-field as requested */}
+
       <div className="about-inner">
         <div className="about-divider" />
         <p className="about-label">Who We Are</p>
@@ -277,27 +300,30 @@ function PortfolioShowcase() {
 
   return (
     <section className="project-showcase" id="our-work" ref={projectRef}>
-      <div className="project-inner">
-        <div className="project-image">
-          {/* Replace this image file with the final project artwork if needed. */}
-          <img
-            src="/images/kalamanch-stage-performance.png"
-            alt="Kalamanch school performance on a professionally produced stage"
+      <div className="project-inner" style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', width: '80%', maxWidth: '1000px', margin: '100px auto', gap: '30px' }}>
+        <div className="project-video" style={{ width: '100%' }}>
+          <video
+            autoPlay
+            loop
+            muted
+            playsInline
+            src="/2nd section.mp4"
+            style={{ width: '100%', height: 'auto', display: 'block', objectFit: 'cover', borderRadius: '12px' }}
           />
         </div>
 
-        <div className="project-content">
-          <p className="project-category">Who We Are</p>
-          <h2>Kalamanch – Where School Events Come Alive</h2>
+        <div className="project-content" style={{ width: '100%', textAlign: 'left' }}>
+          <p className="project-category" style={{ fontSize: '12px', fontWeight: 'bold', textTransform: 'uppercase', color: '#888', marginBottom: '8px', opacity: 1, transform: 'none' }}>Branding</p>
+          <h2 style={{ fontSize: '32px', margin: '0 0 16px 0', opacity: 1, transform: 'none' }}>Kalamanch – Where School Events Come Alive</h2>
 
-          <div className="project-description">
+          <div className="project-description" style={{ fontSize: '16px', lineHeight: '1.6', color: '#ccc', maxWidth: '800px', opacity: 1, transform: 'none' }}>
             <p>
               Kalamanch is a passionate team of creators, planners, and
               production specialists dedicated to crafting extraordinary school
               events that inspire students, engage audiences, and celebrate
               every milestone.
             </p>
-            <p>
+            <p style={{ marginTop: '12px' }}>
               From Annual Days and Founders&apos; Days to Investiture Ceremonies,
               Graduation Celebrations, Cultural Festivals, Award Nights, and
               School Showcases, we combine creativity, storytelling,
@@ -306,10 +332,6 @@ function PortfolioShowcase() {
               community.
             </p>
           </div>
-
-          <a className="project-link" href="#project">
-            See Project <span aria-hidden="true">→</span>
-          </a>
         </div>
       </div>
     </section>
